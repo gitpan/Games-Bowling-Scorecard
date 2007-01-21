@@ -9,13 +9,13 @@ Games::Bowling::Scorecard - score your bowling game easily
 
 =head1 VERSION
 
-version 0.001
+version 0.011
 
-  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard.pm 30250 2007-01-21T18:35:42.430489Z rjbs  $
+  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard.pm 30260 2007-01-21T22:08:43.265787Z rjbs  $
 
 =cut
 
-our $VERSION = 0.001;
+our $VERSION = 0.011;
 
 =head1 SYNOPSIS
 
@@ -100,7 +100,7 @@ sub current_frame {
 
   my $frame = pop @frames;
 
-  return $self->_next_frame if !$frame or $frame->is_done;
+  return $self->_next_frame if !$frame || $frame->is_done;
 
   return $frame;
 }
@@ -156,7 +156,7 @@ done.
 
 =cut
 
-sub record {
+sub record { ## no critic Ambiguous
   my ($self, @balls) = @_;
   
   for my $ball (@balls) {
@@ -187,6 +187,34 @@ sub score {
   return $score;
 }
 
+=head2 score_through
+
+  my $score = $card->score_through($n)
+
+This method returns the score as of the end of the I<n>th frame.  If that
+frame's cannot be definitively stated, because it is pending or not done, undef
+is returned.
+
+=cut
+
+sub score_through {
+  my ($card, $n) = @_;
+
+  Carp::croak "frame out of range" unless $n >= 1 and $n <= 10;
+
+  my @frames = $card->frames;
+  my $score = 0;
+
+  INDEX: for my $idx (0 .. $n - 1) {
+    my $frame = $frames[ $idx ];
+    return undef if $frame->is_pending or not $frame->is_done;
+
+    $score += $frame->score;
+  }
+
+  return $score;
+}
+
 =head2 is_done
 
 This returns true if the scorecard is done.  The scorecard is done if its
@@ -201,6 +229,14 @@ sub is_done {
 
   return (@frames == 10 and $frames[9]->is_done);
 }
+
+=head1 TODO
+
+=over
+
+=item * maybe a way to indicate a split
+
+=back
 
 =head1 AUTHOR
 

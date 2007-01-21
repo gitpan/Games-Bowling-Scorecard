@@ -10,13 +10,23 @@ Games::Bowling::Scorecard::Frame - one frame on a scorecard
 
 =head1 VERSION
 
-version 0.001
+version 0.011
 
-  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard/Frame.pm 30250 2007-01-21T18:35:42.430489Z rjbs  $
+  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard/Frame.pm 30256 2007-01-21T21:59:07.668014Z rjbs  $
 
 =cut
 
-our $VERSION = 0.001;
+our $VERSION = 0.011;
+
+=head1 DESCRIPTION
+
+A frame is one attempt to knock down all ten pins -- unless it's the tenth
+frame, in which case it's so goofy that you need to use a different class,
+L<Games::Bowling::Scorecard::Frame::TenPinTenth>.  A frame is done when you've
+bowled twice or knocked down all the pins, and it's pending until its score can
+be definitively be stated.
+
+=cut
 
 use Carp ();
 
@@ -50,7 +60,7 @@ and whether the frame is done or pending.
 
 =cut
 
-sub record {
+sub record { ## no critic Ambiguous
   my ($self, $ball) = @_;
 
   if ($self->is_done) {
@@ -59,7 +69,7 @@ sub record {
       $self->{score} += $ball;
       return;
     } else {
-      Carp::croak "two balls already recorded for frame" if $self->is_done;
+      Carp::croak "two balls already recorded for frame";
     }
   }
 
@@ -158,4 +168,3 @@ under the same terms as Perl itself.
 =cut
 
 300;
-
