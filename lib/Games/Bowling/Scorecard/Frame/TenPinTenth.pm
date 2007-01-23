@@ -11,13 +11,13 @@ Games::Bowling::Scorecard::Frame::TenPinTenth - ten pin's weird 10th frame
 
 =head1 VERSION
 
-version 0.011
+version 0.100
 
-  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard/Frame/TenPinTenth.pm 30255 2007-01-21T19:09:26.950988Z rjbs  $
+  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard/Frame/TenPinTenth.pm 30315 2007-01-22T23:00:22.618223Z rjbs  $
 
 =cut
 
-our $VERSION = '0.011';
+our $VERSION = '0.100';
 
 =head1 DESCRIPTION
 
@@ -54,6 +54,24 @@ The tenth frame is never pending.  Once it's done, its score is final.
 
 sub is_pending {
   return 0;
+}
+
+=head2 roll_ok
+
+The tenth frame's C<roll_ok> is identical to the standard C<roll_ok>, but
+replaces the "can't total more than 10" rule with a more complex rule.
+
+=cut
+
+sub roll_ok {
+  my ($self, $ball) = @_;
+
+  eval { $self->SUPER::roll_ok($ball) };
+
+  if (my $error = $@) {
+    return if $error =~ /would bring the frame above 10/;
+    die $error;
+  }
 }
 
 =head1 AUTHOR

@@ -9,13 +9,13 @@ Games::Bowling::Scorecard - score your bowling game easily
 
 =head1 VERSION
 
-version 0.011
+version 0.100
 
-  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard.pm 30260 2007-01-21T22:08:43.265787Z rjbs  $
+  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard.pm 30317 2007-01-22T23:04:33.813810Z rjbs  $
 
 =cut
 
-our $VERSION = 0.011;
+our $VERSION = '0.100';
 
 =head1 SYNOPSIS
 

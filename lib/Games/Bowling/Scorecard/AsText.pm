@@ -10,13 +10,13 @@ Games::Bowling::Scorecard::AsText - format a bowling scorecard as text
 
 =head1 VERSION
 
-version 0.011
+version 0.100
 
-  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard/AsText.pm 30262 2007-01-21T22:12:58.006200Z rjbs  $
+  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard/AsText.pm 30317 2007-01-22T23:04:33.813810Z rjbs  $
 
 =cut
 
-our $VERSION = 0.011;
+our $VERSION = '0.100';
 
 =head1 SYNOPSIS
 
@@ -82,9 +82,7 @@ sub card_as_text {
       next INDEX;
     }
 
-    my ($b1, $b2) = $frame->balls;
-
-    $balls .= sprintf '| %s ', $self->_two_balls($b1, $b2);
+    $balls .= sprintf '| %s ', $self->_two_balls($frame->balls);
 
     my $score = $card->score_through($i + 1);
     $scores .= defined $score
@@ -95,7 +93,7 @@ sub card_as_text {
   TENTH: for (1) {
     my $frame = $frames[ 9 ];
 
-    unless ($frame and $frame->balls) {
+    unless ($frame) {
       $_ .= '|       |' for $balls, $scores;
       last TENTH;
     }
@@ -103,6 +101,7 @@ sub card_as_text {
     $balls .= sprintf '| %s |', $self->_three_balls($frame->balls);
 
     my $score = $card->score_through(10);
+
     $scores .= defined $score
              ? sprintf '|   %3u |', $score
              : '|       |';
@@ -112,8 +111,11 @@ sub card_as_text {
        . "$balls\n"
        . "$scores\n";
 }
+
 sub _two_balls {
   my ($self, $b1, $b2) = @_;
+
+  return '   ' unless defined $b1;
 
   sprintf '%s %s',
     $b1 == 10 ? 'X' : $b1 || '-',
@@ -122,6 +124,8 @@ sub _two_balls {
 
 sub _three_balls {
   my ($self, $b1, $b2, $b3) = @_;
+
+  return '     ' unless defined $b1;
 
   if ($b1 == 10) {
     return 'X    ' unless defined $b2;
@@ -135,9 +139,9 @@ sub _three_balls {
   } elsif ($b1 + $b2 == 10) {
     return sprintf '%s %s',
       $self->_two_balls($b1, $b2),
-      defined $b3 ? $b3 || '-' : ' ';
+      defined $b3 ? $b3 == 10 ? 'X' : $b3 || '-' : ' ';
   } else {
-    return sprintf '%s  ', $self->_two_balls($b1, $b3);
+    return sprintf '%s  ', $self->_two_balls($b1, $b2);
   }
 }
 
