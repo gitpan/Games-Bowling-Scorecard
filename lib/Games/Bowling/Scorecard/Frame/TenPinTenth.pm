@@ -11,13 +11,11 @@ Games::Bowling::Scorecard::Frame::TenPinTenth - ten pin's weird 10th frame
 
 =head1 VERSION
 
-version 0.100
-
-  $Id: /my/cs/projects/Games-Bowling-Scorecard/trunk/lib/Games/Bowling/Scorecard/Frame/TenPinTenth.pm 30315 2007-01-22T23:00:22.618223Z rjbs  $
+version 0.102
 
 =cut
 
-our $VERSION = '0.100';
+our $VERSION = '0.102';
 
 =head1 DESCRIPTION
 
