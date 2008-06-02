@@ -1,0 +1,17 @@
+Changes
+LICENSE
+MANIFEST
+META.yml
+Makefile.PL
+README
+lib/Games/Bowling/Scorecard.pm
+lib/Games/Bowling/Scorecard/AsText.pm
+lib/Games/Bowling/Scorecard/Frame.pm
+lib/Games/Bowling/Scorecard/Frame/TenPinTenth.pm
+t/as-text.t
+t/basic.t
+t/frame-10.t
+t/frame.t
+xt/release/perl-critic.t
+xt/release/pod-coverage.t
+xt/release/pod.t

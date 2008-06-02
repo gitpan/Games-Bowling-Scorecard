@@ -1,11 +1,14 @@
 use strict;
 use warnings;
 
-use inc::Module::Install;
+use ExtUtils::MakeMaker;
 
-name          ('Games-Bowling-Scorecard');
-author        ('Ricardo SIGNES <rjbs@cpan.org>');
-license       ('perl');
-version_from  ('lib/Games/Bowling/Scorecard.pm');
+WriteMakefile(
+  NAME         => 'Games-Bowling-Scorecard',
+  AUTHOR       => 'Ricardo\ SIGNES\ \<rjbs\@cpan\.org\>',
+  VERSION_FROM => "lib/Games/Bowling/Scorecard.pm",
+  (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
+  PREREQ_PM    => {
 
-WriteAll();
+  },
+);
