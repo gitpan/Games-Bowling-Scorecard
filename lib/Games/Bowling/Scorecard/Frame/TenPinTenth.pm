@@ -1,9 +1,45 @@
-
 use strict;
 use warnings;
 
 package Games::Bowling::Scorecard::Frame::TenPinTenth;
-use base qw(Games::Bowling::Scorecard::Frame);
+{
+  $Games::Bowling::Scorecard::Frame::TenPinTenth::VERSION = '0.104';
+}
+use parent qw(Games::Bowling::Scorecard::Frame);
+# ABSTRACT: ten pin's weird 10th frame
+
+
+sub is_done {
+  my ($self) = @_;
+
+  my @balls = $self->balls;
+
+  return 1 if @balls == 3 or @balls == 2 and $balls[0] + $balls[1] < 10;
+  return;
+}
+
+
+sub is_pending {
+  return 0;
+}
+
+
+sub roll_ok {
+  my ($self, $ball) = @_;
+
+  eval { $self->SUPER::roll_ok($ball) };
+
+  if (my $error = $@) {
+    return if $error =~ /would bring the frame above 10/;
+    die $error;
+  }
+}
+
+300;
+
+__END__
+
+=pod
 
 =head1 NAME
 
@@ -11,11 +47,7 @@ Games::Bowling::Scorecard::Frame::TenPinTenth - ten pin's weird 10th frame
 
 =head1 VERSION
 
-version 0.103
-
-=cut
-
-our $VERSION = '0.103';
+version 0.104
 
 =head1 DESCRIPTION
 
@@ -33,63 +65,24 @@ module.
 The tenth frame is done if: (a) three balls have been bowled or (b) two balls
 have been bowled, totalling less than ten.
 
-=cut
-
-sub is_done {
-  my ($self) = @_;
-
-  my @balls = $self->balls;
-
-  return 1 if @balls == 3 or @balls == 2 and $balls[0] + $balls[1] < 10;
-  return;
-}
-
 =head2 is_pending
 
 The tenth frame is never pending.  Once it's done, its score is final.
-
-=cut
-
-sub is_pending {
-  return 0;
-}
 
 =head2 roll_ok
 
 The tenth frame's C<roll_ok> is identical to the standard C<roll_ok>, but
 replaces the "can't total more than 10" rule with a more complex rule.
 
-=cut
-
-sub roll_ok {
-  my ($self, $ball) = @_;
-
-  eval { $self->SUPER::roll_ok($ball) };
-
-  if (my $error = $@) {
-    return if $error =~ /would bring the frame above 10/;
-    die $error;
-  }
-}
-
 =head1 AUTHOR
 
-Ricardo SIGNES, C<< <rjbs at cpan.org> >>
+Ricardo SIGNES <rjbs@cpan.org>
 
-=head1 BUGS
+=head1 COPYRIGHT AND LICENSE
 
-Please report any bugs or feature requests to the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Games-Bowling-Scorecard>.  I
-will be notified, and then you'll automatically be notified of progress on your
-bug as I make changes.
+This software is copyright (c) 2013 by Ricardo SIGNES.
 
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2007 Ricardo SIGNES, all rights reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-300;
