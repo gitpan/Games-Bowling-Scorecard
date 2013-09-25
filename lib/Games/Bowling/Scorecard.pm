@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Games::Bowling::Scorecard;
 {
-  $Games::Bowling::Scorecard::VERSION = '0.104';
+  $Games::Bowling::Scorecard::VERSION = '0.105';
 }
 # ABSTRACT: score your bowling game easily
 
@@ -129,7 +129,7 @@ Games::Bowling::Scorecard - score your bowling game easily
 
 =head1 VERSION
 
-version 0.104
+version 0.105
 
 =head1 SYNOPSIS
 

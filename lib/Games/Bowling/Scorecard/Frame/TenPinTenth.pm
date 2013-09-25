@@ -3,7 +3,7 @@ use warnings;
 
 package Games::Bowling::Scorecard::Frame::TenPinTenth;
 {
-  $Games::Bowling::Scorecard::Frame::TenPinTenth::VERSION = '0.104';
+  $Games::Bowling::Scorecard::Frame::TenPinTenth::VERSION = '0.105';
 }
 use parent qw(Games::Bowling::Scorecard::Frame);
 # ABSTRACT: ten pin's weird 10th frame
@@ -47,7 +47,7 @@ Games::Bowling::Scorecard::Frame::TenPinTenth - ten pin's weird 10th frame
 
 =head1 VERSION
 
-version 0.104
+version 0.105
 
 =head1 DESCRIPTION
 

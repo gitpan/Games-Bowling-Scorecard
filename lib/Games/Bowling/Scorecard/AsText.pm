@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Games::Bowling::Scorecard::AsText;
 {
-  $Games::Bowling::Scorecard::AsText::VERSION = '0.104';
+  $Games::Bowling::Scorecard::AsText::VERSION = '0.105';
 }
 # ABSTRACT: format a bowling scorecard as text
 
@@ -99,7 +99,7 @@ Games::Bowling::Scorecard::AsText - format a bowling scorecard as text
 
 =head1 VERSION
 
-version 0.104
+version 0.105
 
 =head1 SYNOPSIS
 

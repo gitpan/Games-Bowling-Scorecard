@@ -3,7 +3,7 @@ use warnings;
 
 package Games::Bowling::Scorecard::Frame;
 {
-  $Games::Bowling::Scorecard::Frame::VERSION = '0.104';
+  $Games::Bowling::Scorecard::Frame::VERSION = '0.105';
 }
 # ABSTRACT: one frame on a scorecard
 
@@ -116,7 +116,7 @@ Games::Bowling::Scorecard::Frame - one frame on a scorecard
 
 =head1 VERSION
 
-version 0.104
+version 0.105
 
 =head1 DESCRIPTION
 
